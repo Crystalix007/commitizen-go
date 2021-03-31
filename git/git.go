@@ -66,6 +66,7 @@ func CommitMessage(message []byte, all bool) (string, error) {
 		// run git commit command
 		cmd := exec.Command("git", "commit", "-F")
 		cmd.Args = append(cmd.Args, file.Name())
+		cmd.Stderr = os.Stderr
 		if all {
 			cmd.Args = append(cmd.Args, "-a")
 		}
@@ -108,6 +109,7 @@ func copyFile(dstName, srcName string) (written int64, err error) {
 
 func execPath() (string, error) {
 	cmd := exec.Command("git", "--exec-path")
+	cmd.Stderr = os.Stderr
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return "", err

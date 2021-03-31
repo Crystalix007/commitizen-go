@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/lintingzhen/commitizen-go/git"
+	"github.com/Crystalix007/commitizen-go/git"
 	"github.com/spf13/cobra"
 )
 

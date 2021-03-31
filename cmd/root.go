@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/lintingzhen/commitizen-go/commit"
-	"github.com/lintingzhen/commitizen-go/git"
+	"github.com/Crystalix007/commitizen-go/commit"
+	"github.com/Crystalix007/commitizen-go/git"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
