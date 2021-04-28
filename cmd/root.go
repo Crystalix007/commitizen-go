@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path"
 
 	"github.com/Crystalix007/commitizen-go/commit"
 	"github.com/Crystalix007/commitizen-go/git"
@@ -52,13 +53,33 @@ func initConfig() {
 		log.SetOutput(f)
 	}
 
+	wd, err := os.Getwd()
+	if err != nil {
+		log.Printf("Get current dir failed, err=%v\n", err)
+		os.Exit(1)
+	}
+
+	wd = path.Clean(wd)
+
 	// Find home directory.
 	if home, err := homedir.Dir(); err != nil {
 		log.Printf("Get home dir failed, err=%v\n", err)
 		os.Exit(1)
 	} else {
+		// Search recursively up from CWD
+		for true {
+			viper.AddConfigPath(wd)
+
+			if wd == "/" {
+				break
+			}
+
+			wd = path.Dir(wd)
+		}
+
 		// Search config in home directory with name ".git-czrc" (without extension).
 		viper.AddConfigPath(home)
+
 		viper.SetConfigName(".git-czrc")
 		viper.SetConfigType("json")
 
